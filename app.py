@@ -60,8 +60,8 @@ def extract_features_from_image(img):
 
         patch_size = (16, 16)
         img_patches = [img[i:i+patch_size[0], j:j+patch_size[1], :]
-                    for i in range(0, img.shape[0], patch_size[0])
-                    for j in range(0, img.shape[1], patch_size[1])]
+                       for i in range(0, img.shape[0], patch_size[0])
+                       for j in range(0, img.shape[1], patch_size[1])]
         img_patches = np.array(img_patches).reshape(-1, patch_size[0], patch_size[1], 3)
 
         pixelhop1 = CustomPixelHop(10)
@@ -75,10 +75,10 @@ def extract_features_from_image(img):
         wavelet_feats = wavelet_features(img)
 
         combined_features = np.hstack((pixelhop_feats, gabor_feats, wavelet_feats))
-        print("Features extracted.")
+        print(" Features extracted.")
         return combined_features
     except Exception as e:
-        print("Feature extraction failed:", e)
+        print(" Feature extraction failed:", e)
         raise e
 
 def predict_image(img_path):
@@ -114,16 +114,19 @@ def predict():
             return render_template('index.html', prediction="No file selected")
 
         os.makedirs('static', exist_ok=True)
-        filepath = os.path.abspath(os.path.join('static', file.filename))
+        filename = file.filename
+        filepath = os.path.join('static', filename)
         file.save(filepath)
 
         result = predict_image(filepath)
         label = "Fake Satellite Image" if result == 1 else "Real Satellite Image"
-        return render_template('index.html', prediction=label, image_path=filepath)
+        image_url = f"/static/{filename}"
+        return render_template('index.html', prediction=label, image_path=image_url)
 
     except Exception as e:
-        print("Error in /predict route:", e)
+        print(" Error in /predict route:", e)
         return render_template('index.html', prediction="Prediction failed. Try again.")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
