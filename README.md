@@ -49,7 +49,7 @@ flowchart TD
 
 ## Dataset
 
-The thesis describes the **DM-AER-DeepFake-V1** dataset:
+The project uses the **DM-AER-DeepFake-V1** dataset:
 
 - **Synthetic images:** 1,000,000 StyleGAN2-generated aerial images.
 - **Real images:** 120,000 images sourced from the Million-AID dataset.
@@ -68,7 +68,7 @@ The dataset is not included in this repository. The repository contains the save
 
 ## Experimental Results
 
-The thesis reports the following results for the evaluated feature-based XGBoost models:
+The evaluated feature-based XGBoost models achieved the following accuracy:
 
 | Feature set | Accuracy |
 |---|---:|
@@ -77,15 +77,19 @@ The thesis reports the following results for the evaluated feature-based XGBoost
 | Gabor texture features | 66.60% |
 | Combined features (PSL) | **92.38%** |
 
-Additional reported results for the combined-feature model:
+### Combined Model Performance
 
-- **ROC-AUC:** 0.98
+The final combined-feature model was evaluated on **800 images**:
+
 - **Correctly classified real images:** 396
 - **Correctly classified fake images:** 343
+- **Total correctly classified:** 739 out of 800 images (**92.38%**)
+- **Incorrectly classified:** 61 images
 - **False positives:** 26
 - **False negatives:** 35
+- **ROC-AUC:** 0.98
 
-These are experimental results reported in the thesis; they are not a guarantee of performance on every unseen image or image-generation method.
+The model correctly classified 739 images, while 61 images were misclassified in this evaluation.
 
 ## Technology Stack
 
@@ -165,11 +169,4 @@ Open **http://localhost:5000** in your browser.
 
 - The application loads `xgb_model.pkl` and `pca_model.pkl` from the repository root. Keep both files in that location when running the app.
 - The training dataset and complete training notebooks/scripts are not included in this repository; the saved model artifacts are used for inference.
-- The thesis discusses SHAP-based model interpretation as part of the project evaluation. The current Flask interface displays the binary prediction and uploaded image; it does not display SHAP explanations.
 - Pickle model files should only be loaded from sources you trust.
-
-## Research Context
-
-This project was developed as part of the **CS6611 – Creative and Innovative Project** at **Madras Institute of Technology, Anna University**.
-
-**Project title:** Fake Satellite Image Detection Using Parallel Subspace Learning
