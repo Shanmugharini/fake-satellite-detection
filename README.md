@@ -39,6 +39,12 @@ flowchart TD
     K --> L[Display Result in Flask Web Interface]
 ```
 
+## Application Screenshots
+
+The screenshots below demonstrate the Flask web application classifying uploaded satellite images as **Real** or **Fake**.
+
+![Fake Satellite Image Detector – Real and Fake prediction examples](assets/satellite-image-detector-demo.png)
+
 ## Key Features
 
 - **Satellite Image Upload:** Upload an image through a simple Flask-based web interface.
